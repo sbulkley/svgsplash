@@ -27,29 +27,46 @@
                 overflow: hidden;
             }
             
-            #name {
+            .words {
                 position: absolute;
-                bottom: 0;
-                right: 0;
                 font-family: 'Raleway', sans-serif;
                 font-size: 1em;
                 text-align: left;
             }
             
-            #name:hover {
-                cursor: pointer;
-            }
-            
             @media(min-width:768px) {
-                #name {
+                .words {
                     font-size: 2em;
                 }
             }
             
             @media(min-width:992px) {
-                #name {
+               .words {
                     font-size: 3em;
                 }
+            }
+            
+            #actions {
+                bottom: 0;
+                right: 0;
+            }
+            
+            #options {
+                top: 0;
+                left: 0;
+            }
+            
+            #purge:hover, #options:hover {
+                cursor: pointer;
+            }
+            
+            #enter:hover {
+                cursor: crosshair;
+                text-decoration: none;
+            }
+            
+            .off {
+                opacity: 0.25;
             }
             
             #layer {
@@ -72,7 +89,12 @@
     </head>
     <body>
     <div class="container text-center" id="main">
-    <div id="name">SAM BULKLEY&#9679;&nbsp;</div>
+        <div class="words" id="options">
+            &nbsp;<span id="o_click">CLICK</span>&#9679;<span id="o_hover">HOVER</span>
+        </div>
+        <div class="words" id="actions">
+            <span id="purge">PURGE</span>&#9679;<a href="sambulkley.com" id="enter">ENTER</a>&nbsp;
+        </div>
     <div id="layer">
 <svg version="1.1" id="mySvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 800 800" enable-background="new 0 0 800 800" xml:space="preserve">
@@ -1062,9 +1084,32 @@
             bigSplash($(this).attr("id"));
         });
         
-        $("#name").click(function() {
+        $("#purge").click(function() {
             purge();
         });
+        
+        $("#o_click").click(function() {
+            $(this).toggleClass("off");
+            if($(this).hasClass("off")) {
+                $("polygon").off("click");
+            } else {
+                $("polygon").on("click", function() {
+                    bigSplash($(this).attr("id"));
+                });
+            }
+        });
+        
+        $("#o_hover").click(function() {
+            $(this).toggleClass("off");
+            if($(this).hasClass("off")) {
+                $("polygon").unbind("mouseenter mouseleave");
+            } else {
+                $("polygon").hover(function() {
+                    splash($(this).attr("id"));
+                });
+            }
+        });
+
     });
     </script>
     </body>
