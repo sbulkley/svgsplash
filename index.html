@@ -939,7 +939,7 @@
 <rect x="-33.888" y="799" fill="#FFFFFF" width="867.775" height="33.887"/>
 </svg>
         </div>
-      
+        
 </div>
 
     <script>
@@ -1090,7 +1090,7 @@
         /* fit the graphic to the window by constraining dimension */
         
         if($(window).width() > $(window).height()) {
-            $("#layer").css("height", $(window).height() * 0.9);
+            $("#layer").css("height", $(window).height() * 0.8);
             $("#layer").css("width", "auto");
         } else {
             $("#layer").css("width", $(window).width() * 0.9);
@@ -1108,6 +1108,9 @@
         
         $("#layer").fadeIn();
         
+        //var audioElement = document.createElement('audio');
+        //audioElement.setAttribute('src', 'zig-zag.mp3');
+        
         $('polygon').hover(function(){
             splash($(this).attr("id"));
         });
@@ -1115,6 +1118,7 @@
 
         $('polygon').click(function(){
             bigSplash($(this).attr("id"));
+            //audioElement.play();
         });
         
         $("#purge").click(function() {
@@ -1128,6 +1132,7 @@
             } else {
                 $("polygon").on("click", function() {
                     bigSplash($(this).attr("id"));
+                    //audioElement.play();
                 });
             }
         });
