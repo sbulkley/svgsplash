@@ -66,7 +66,7 @@
             }
             
             #enter:hover {
-                cursor: crosshair;
+                cursor: pointer;
                 text-decoration: none;
             }
             
@@ -83,6 +83,10 @@
             #layer svg{
                 height: 100%;
                 width: 100%;
+            }
+            
+            polygon:hover {
+                cursor: crosshair;
             }
             
         </style>
@@ -1166,9 +1170,10 @@
             }
         }
         
+        
         $("polygon").hover(function() {
             splash($(this).attr("id"));
-        });
+        });        
         
         $('polygon').click(function(){
             bigSplash($(this).attr("id"));
