@@ -75,7 +75,6 @@
             }
             
             #layer {
-                display: none;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -1113,9 +1112,7 @@
         
         var graphicTopOffset = (windowHeight - graphicHeight - 2*optionsHeight) / 2;
         $("#layer").css("margin-top", graphicTopOffset);
-        
-        $("#layer").fadeIn();
-        
+                
         var note_c = document.createElement('audio');
         note_c.setAttribute('src', 'notes/C.mp3');
         var note_e = document.createElement('audio');
