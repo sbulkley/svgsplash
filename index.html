@@ -1183,6 +1183,10 @@
             purge();
         });
         
+        $("#enter").click(function() {
+            location.reload();
+        });
+        
         $("#o_click").click(function() {
             $(this).toggleClass("off");
             if($(this).hasClass("off")) {
