@@ -16,6 +16,11 @@
             
             html {
                 height: 100%;
+                 -moz-user-select     : none;
+                 -khtml-user-select   : none;
+                 -webkit-user-select  : none;
+                 -o-user-select       : none;
+                 user-select          : none;
             }
             
             body {
@@ -30,21 +35,20 @@
             
             .words {
                 font-family: 'Raleway', sans-serif;
-                font-size: 1em;
             }
             
             #actions {
                 position: absolute;
                 bottom: 0;
                 right: 0;
-                font-size: 2.5em;
+                font-size: 2em;
                 text-align: left;
 
             }
             
             #options {
                 text-align: center;
-                font-size: 1.5em;
+                font-size: 1.25em;
             }
             
             @media(min-width: 768px) {
@@ -86,7 +90,7 @@
     <body>
     <div class="container-fluid text-center" id="main">
         <div class="words" id="options">
-            &nbsp;<span id="o_click">CLICK</span> &#9679; <span id="o_hover">HOVER</span> &#9679; <span id="purge">PURGE</span>
+        <span id="o_click">CLICK</span>&#9679;<span id="o_hover">HOVER</span>&#9679;<span id="o_sound">SOUND</span>&#9679;<span id="purge">PURGE</span>
         </div>
         <div class="words" id="actions">
             <a href="#" id="enter">ENTER</a>&#9679;&nbsp;
@@ -1108,17 +1112,67 @@
         
         $("#layer").fadeIn();
         
-        //var audioElement = document.createElement('audio');
-        //audioElement.setAttribute('src', 'zig-zag.mp3');
+        var note_c = document.createElement('audio');
+        note_c.setAttribute('src', 'notes/C.mp3');
+        var note_e = document.createElement('audio');
+        note_e.setAttribute('src', 'notes/E.mp3');
+        var note_g = document.createElement('audio');
+        note_g.setAttribute('src', 'notes/G.mp3');
+        var note_a = document.createElement('audio');
+        note_a.setAttribute('src', 'notes/A.mp3');
+        var note_c2 = document.createElement('audio');
+        note_c2.setAttribute('src', 'notes/C2.mp3');
+        var note_e2 = document.createElement('audio');
+        note_e2.setAttribute('src', 'notes/E2.mp3');
         
-        $('polygon').hover(function(){
+        var notes = [1,2,3,4,5,6];
+        resetNotes();
+        $("#o_sound").toggleClass("off");
+        var allowSound = false;
+                
+        function resetNotes() {
+            notes = [1,2,3,4,5,6];
+            notes = shuffleArray(notes);
+        }
+        
+        function playNote() {
+            if(allowSound) {
+                if(notes.length === 0) {
+                    resetNotes();
+                }
+
+                switch(notes.pop()) {
+                    case 1:
+                        note_c.play();
+                        break;
+                    case 2:
+                        note_e.play();
+                        break;
+                    case 3:
+                        note_g.play();
+                        break;
+                    case 4:
+                        note_a.play();
+                        break;
+                    case 5:
+                        note_c2.play();
+                        break;
+                    case 6:
+                        note_e2.play();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        $("polygon").hover(function() {
             splash($(this).attr("id"));
         });
         
-
         $('polygon').click(function(){
             bigSplash($(this).attr("id"));
-            //audioElement.play();
+            playNote();
         });
         
         $("#purge").click(function() {
@@ -1132,7 +1186,7 @@
             } else {
                 $("polygon").on("click", function() {
                     bigSplash($(this).attr("id"));
-                    //audioElement.play();
+                    playNote();
                 });
             }
         });
@@ -1147,6 +1201,17 @@
                 });
             }
         });
+        
+        $("#o_sound").click(function() {
+            $(this).toggleClass("off");
+            if($(this).hasClass("off")) {
+                allowSound = false;
+            } else {
+                allowSound = true;
+            }
+        });
+        
+
 
     });
     </script>
